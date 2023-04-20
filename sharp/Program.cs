@@ -1,5 +1,6 @@
 
 global using sharp.Models;
+global using sharp.Data;
 using sharp.Services.BlogsService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBlogsService, BlogsService>();
+builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
 

@@ -22,31 +22,41 @@
                     CreatedAt = DateTime.Now
                 }
             };
-        Blogs IBlogsService.CreateBlog(Blogs blog)
+        private readonly DataContext _context;
+
+        public BlogsService(DataContext context)
         {
-            blogs.Add(blog);
+            _context = context;
+        }
+        async Task<Blogs> IBlogsService.CreateBlog(Blogs blog)
+        {
+            _context.BlogsPlatform.Add(blog);
+            await _context.SaveChangesAsync();
             return blog;
         }
 
-        Blogs? IBlogsService.DeleteBlog(string id)
+        async Task<Blogs?> IBlogsService.DeleteBlog(string id)
         {
-            var blog = blogs.Find(x => x.Id == id);
+            var blog = await _context.BlogsPlatform.FindAsync(id);
             if (blog == null)
             {
                 return null;
             }
-            blogs.Remove(blog);
+            _context.BlogsPlatform.Remove(blog);
+            await _context.SaveChangesAsync();
+
             return blog;
         }
 
-        List<Blogs> IBlogsService.GetAllBlogs()
+        async Task<List<Blogs>> IBlogsService.GetAllBlogs()
         {
+            var blogs = await _context.BlogsPlatform.ToListAsync();
             return blogs;
         }
 
-        Blogs? IBlogsService.GetBlog(string id)
+        async Task<Blogs?> IBlogsService.GetBlog(string id)
         {
-            var blog = blogs.Find(x => x.Id == id);
+            var blog = await _context.BlogsPlatform.FindAsync(id);
             if (blog == null)
             {
                 return null;
@@ -54,15 +64,18 @@
             return blog;
         }
 
-        Blogs? IBlogsService.UpdateBlog(string id, string name, string websiteUrl)
+        async Task<Blogs?> IBlogsService.UpdateBlog(string id, string name, string websiteUrl)
         {
-            var blog = blogs.Find(x => x.Id == id);
+            var blog = await _context.BlogsPlatform.FindAsync(id);
             if (blog == null)
             {
                 return null;
             }
             blog.Name = name;
             blog.WebsiteUrl = websiteUrl;
+
+            await _context.SaveChangesAsync();
+
             return blog;
         }
     }

@@ -16,13 +16,13 @@ namespace sharp.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Blogs>>> GetAllBlogs()
         {
-            return Ok(_blogService.GetAllBlogs());
+            return Ok(await _blogService.GetAllBlogs());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Blogs>> GetBlog(string id)
         {
-            var blog = _blogService.GetBlog(id);
+            var blog = await _blogService.GetBlog(id);
             if(blog == null)
             {
                 return NotFound();
@@ -33,14 +33,14 @@ namespace sharp.Controllers
         [HttpPost()]
         public async Task<ActionResult<Blogs>> CreateBlog(Blogs blog)
         {
-            var result = _blogService.CreateBlog(blog);
+            var result = await _blogService.CreateBlog(blog);
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Blogs>> UpdateBlog(string id, string name, string websiteUrl)
         {
-            var blog = _blogService.UpdateBlog(id, name, websiteUrl);
+            var blog =  await _blogService.UpdateBlog(id, name, websiteUrl);
             if(blog == null) 
             { 
                 return NotFound(); 
@@ -51,7 +51,7 @@ namespace sharp.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Blogs>> DeleteBlog(string id)
         {
-            var blog = _blogService.DeleteBlog(id);
+            var blog = await _blogService.DeleteBlog(id);
             if (blog == null)
             {
                 return NotFound();
