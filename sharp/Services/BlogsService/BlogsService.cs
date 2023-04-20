@@ -2,26 +2,6 @@
 {
     public class BlogsService : IBlogsService
     {
-        private static List<Blogs> blogs = new List<Blogs>
-            {
-                new Blogs
-                {
-                    Id = "qwerty",
-                    Name = "Peter",
-                    WebsiteUrl = "hello@gmail.com",
-                    Description = "first blogs",
-                    CreatedAt = DateTime.Now
-
-                },
-                new Blogs
-                {
-                    Id = "hello",
-                    Name = "Glenn",
-                    WebsiteUrl = "kudo@gmail.com",
-                    Description = "second blogs",
-                    CreatedAt = DateTime.Now
-                }
-            };
         private readonly DataContext _context;
 
         public BlogsService(DataContext context)
