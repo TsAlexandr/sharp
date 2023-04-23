@@ -2,10 +2,10 @@
 {
     public interface IBlogsService
     {
-        Task<List<Blogs>> GetAllBlogs();
-        Task<Blogs?> GetBlog(string id);
-        Task<Blogs> CreateBlog(Blogs blog);
-        Task<Blogs?> UpdateBlog(string id, string name, string websiteUrl);
-        Task<Blogs?> DeleteBlog(string id);
+        Task<List<BlogsViewModel>> GetAllBlogs();
+        Task<BlogsViewModel?> GetBlog(string id);
+        Task<BlogsViewModel> CreateBlog(BlogInputModel blog);
+        Task<BlogsViewModel?> UpdateBlog(string id, BlogInputModel blog);
+        Task<BlogsViewModel?> DeleteBlog(string id);
     }
 }

@@ -1,11 +1,20 @@
 ﻿namespace sharp.Models
 {
-    public class Blogs
+    public class BlogsViewModel
     {
-        public string Id { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string WebsiteUrl { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string WebsiteUrl { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public BlogsViewModel(string name, string websiteUrl, string description)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = name;
+            WebsiteUrl = websiteUrl;
+            Description = description;
+            CreatedAt = DateTime.Now.ToUniversalTime();
+        }
     }
 }

@@ -8,35 +8,40 @@
         {
             _context = context;
         }
-        async Task<Blogs> IBlogsService.CreateBlog(Blogs blog)
+        async Task<BlogsViewModel> IBlogsService.CreateBlog(BlogInputModel blog)
         {
-            _context.BlogsPlatform.Add(blog);
+            BlogsViewModel created = new(
+                            blog.Name,
+                            blog.WebsiteUrl,
+                            blog.Description
+                        );
+            _context.BlogsViewModel.Add(created);
             await _context.SaveChangesAsync();
-            return blog;
+            return created;
         }
 
-        async Task<Blogs?> IBlogsService.DeleteBlog(string id)
+        async Task<BlogsViewModel?> IBlogsService.DeleteBlog(string id)
         {
-            var blog = await _context.BlogsPlatform.FindAsync(id);
+            BlogsViewModel? blog = await _context.BlogsViewModel.FindAsync(id);
             if (blog == null)
             {
                 return null;
             }
-            _context.BlogsPlatform.Remove(blog);
+            _context.BlogsViewModel.Remove(blog);
             await _context.SaveChangesAsync();
 
             return blog;
         }
 
-        async Task<List<Blogs>> IBlogsService.GetAllBlogs()
+        async Task<List<BlogsViewModel>> IBlogsService.GetAllBlogs()
         {
-            var blogs = await _context.BlogsPlatform.ToListAsync();
+            List<BlogsViewModel> blogs = await _context.BlogsViewModel.ToListAsync();
             return blogs;
         }
 
-        async Task<Blogs?> IBlogsService.GetBlog(string id)
+        async Task<BlogsViewModel?> IBlogsService.GetBlog(string id)
         {
-            var blog = await _context.BlogsPlatform.FindAsync(id);
+            BlogsViewModel? blog = await _context.BlogsViewModel.FindAsync(id);
             if (blog == null)
             {
                 return null;
@@ -44,19 +49,20 @@
             return blog;
         }
 
-        async Task<Blogs?> IBlogsService.UpdateBlog(string id, string name, string websiteUrl)
+        async Task<BlogsViewModel?> IBlogsService.UpdateBlog(string id, BlogInputModel blog)
         {
-            var blog = await _context.BlogsPlatform.FindAsync(id);
-            if (blog == null)
+            BlogsViewModel? result = await _context.BlogsViewModel.FindAsync(id);
+            if (result == null)
             {
                 return null;
             }
-            blog.Name = name;
-            blog.WebsiteUrl = websiteUrl;
+            result.Name = blog.Name;
+            result.WebsiteUrl = blog.WebsiteUrl;
+            result.Description = blog.Description;
 
             await _context.SaveChangesAsync();
 
-            return blog;
+            return result;
         }
     }
 }

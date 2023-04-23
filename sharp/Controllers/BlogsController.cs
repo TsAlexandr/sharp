@@ -14,15 +14,15 @@ namespace sharp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Blogs>>> GetAllBlogs()
+        public async Task<ActionResult<List<BlogsViewModel>>> GetAllBlogs()
         {
             return Ok(await _blogService.GetAllBlogs());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Blogs>> GetBlog(string id)
+        public async Task<ActionResult<BlogsViewModel>> GetBlog(string id)
         {
-            var blog = await _blogService.GetBlog(id);
+            BlogsViewModel? blog = await _blogService.GetBlog(id);
             if(blog == null)
             {
                 return NotFound();
@@ -31,27 +31,27 @@ namespace sharp.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Blogs>> CreateBlog(Blogs blog)
+        public async Task<ActionResult<BlogsViewModel>> CreateBlog(BlogInputModel blog)
         {
-            var result = await _blogService.CreateBlog(blog);
+            BlogsViewModel? result = await _blogService.CreateBlog(blog);
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Blogs>> UpdateBlog(string id, string name, string websiteUrl)
+        public async Task<ActionResult<BlogsViewModel>> UpdateBlog(string id, BlogInputModel blog)
         {
-            var blog =  await _blogService.UpdateBlog(id, name, websiteUrl);
-            if(blog == null) 
+            BlogsViewModel? result =  await _blogService.UpdateBlog(id, blog);
+            if(result == null) 
             { 
                 return NotFound(); 
             }
-            return Ok(blog);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Blogs>> DeleteBlog(string id)
+        public async Task<ActionResult<BlogsViewModel>> DeleteBlog(string id)
         {
-            var blog = await _blogService.DeleteBlog(id);
+            BlogsViewModel? blog = await _blogService.DeleteBlog(id);
             if (blog == null)
             {
                 return NotFound();
