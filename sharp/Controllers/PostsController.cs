@@ -38,7 +38,7 @@ namespace sharp.Controllers
             var result = await _postsService.CreatePost(post);
             if (result == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             return Ok(result);
         }

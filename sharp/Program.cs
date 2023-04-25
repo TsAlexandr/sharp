@@ -1,4 +1,3 @@
-
 global using sharp.Models;
 global using sharp.Data;
 using sharp.Services.BlogsService;

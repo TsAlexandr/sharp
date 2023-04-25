@@ -1,12 +1,25 @@
-﻿namespace sharp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace sharp.Models
 {
     public class BlogsViewModel
     {
+        [Required]
         public string Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string WebsiteUrl { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public DateTime CreatedAt { get; set; }
+
+        public List<PostsViewModel> Posts { get; set; } = new();
 
         public BlogsViewModel(string name, string websiteUrl, string description)
         {
@@ -14,7 +27,7 @@
             Name = name;
             WebsiteUrl = websiteUrl;
             Description = description;
-            CreatedAt = DateTime.Now.ToUniversalTime();
+            CreatedAt = DateTime.UtcNow;
         }
     }
 }
