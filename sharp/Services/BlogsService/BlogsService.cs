@@ -15,19 +15,19 @@
                             blog.WebsiteUrl,
                             blog.Description
                         );
-            _context.BlogsViewModel.Add(created);
+            _context.Blogs.Add(created);
             await _context.SaveChangesAsync();
             return created;
         }
 
         async Task<BlogsViewModel?> IBlogsService.DeleteBlog(string id)
         {
-            BlogsViewModel? blog = await _context.BlogsViewModel.FindAsync(id);
+            BlogsViewModel? blog = await _context.Blogs.FindAsync(id);
             if (blog == null)
             {
                 return null;
             }
-            _context.BlogsViewModel.Remove(blog);
+            _context.Blogs.Remove(blog);
             await _context.SaveChangesAsync();
 
             return blog;
@@ -35,13 +35,13 @@
 
         async Task<List<BlogsViewModel>> IBlogsService.GetAllBlogs()
         {
-            List<BlogsViewModel> blogs = await _context.BlogsViewModel.ToListAsync();
+            List<BlogsViewModel> blogs = await _context.Blogs.ToListAsync();
             return blogs;
         }
 
         async Task<BlogsViewModel?> IBlogsService.GetBlog(string id)
         {
-            BlogsViewModel? blog = await _context.BlogsViewModel.FindAsync(id);
+            BlogsViewModel? blog = await _context.Blogs.FindAsync(id);
             if (blog == null)
             {
                 return null;
@@ -51,7 +51,7 @@
 
         async Task<BlogsViewModel?> IBlogsService.UpdateBlog(string id, BlogInputModel blog)
         {
-            BlogsViewModel? result = await _context.BlogsViewModel.FindAsync(id);
+            BlogsViewModel? result = await _context.Blogs.FindAsync(id);
             if (result == null)
             {
                 return null;

@@ -5,9 +5,7 @@ namespace sharp.Data
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-            
-        }
+        {}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -17,15 +15,15 @@ namespace sharp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PostsViewModel>()
-                .HasOne(p => p.Blogs)
-                .WithMany(b => b.Posts)
-                .HasForeignKey(p => p.BlogId);
-                
+            modelBuilder.Entity<BlogsViewModel>()
+                .HasMany(e => e.Posts)
+                .WithOne(e => e.Blogs)
+                .HasForeignKey(e => e.BlogId)
+                .HasPrincipalKey(e => e.Id);
         }
 
-        public DbSet<BlogsViewModel> BlogsViewModel { get; set; }
-        public DbSet<PostsViewModel> PostsViewModel { get; set; }
+        public DbSet<BlogsViewModel> Blogs { get; set; }
+        public DbSet<PostsViewModel> Posts { get; set; }
     }
 }
 
