@@ -17,7 +17,7 @@ namespace sharp.Data
         {
             modelBuilder.Entity<BlogsViewModel>()
                 .HasMany(e => e.Posts)
-                .WithOne(e => e.Blogs)
+                .WithOne(e => e.Blog)
                 .HasForeignKey(e => e.BlogId)
                 .HasPrincipalKey(e => e.Id);
         }

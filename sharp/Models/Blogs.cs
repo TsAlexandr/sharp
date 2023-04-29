@@ -19,7 +19,8 @@ namespace sharp.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public List<PostsViewModel> Posts { get; set; } = new();
+        [ScaffoldColumn(false)]
+        public List<PostsViewModel> Posts { get; set; } = new List<PostsViewModel>();
 
         public BlogsViewModel(string name, string websiteUrl, string description)
         {
