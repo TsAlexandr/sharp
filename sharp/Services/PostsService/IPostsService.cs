@@ -2,10 +2,10 @@
 {
     public interface IPostsService
     {
-        Task<List<PostsViewModel>> GetAllPosts();
-        Task<PostsViewModel?> GetPost(string id);
-        Task<PostsViewModel?> CreatePost(PostInputModel post);
-        Task<PostsViewModel?> UpdatePost(string id, PostInputModel post);
-        Task<PostsViewModel?> DeletePost(string id);
+        Task<List<PostsEntity>> GetAllPosts();
+        Task<PostsEntity?> GetPost(string id);
+        Task<PostsEntity?> CreatePost(PostInputModel post);
+        Task<PostsEntity?> UpdatePost(string id, PostInputModel post);
+        Task<PostsEntity?> DeletePost(string id);
     }
 }

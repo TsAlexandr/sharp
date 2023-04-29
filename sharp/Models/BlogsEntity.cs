@@ -2,7 +2,7 @@
 
 namespace sharp.Models
 {
-    public class BlogsViewModel
+    public class BlogsEntity
     {
         [Required]
         public string Id { get; set; }
@@ -19,10 +19,9 @@ namespace sharp.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [ScaffoldColumn(false)]
-        public List<PostsViewModel> Posts { get; set; } = new List<PostsViewModel>();
+        public List<PostsEntity> Posts { get; set; } = new List<PostsEntity>();
 
-        public BlogsViewModel(string name, string websiteUrl, string description)
+        public BlogsEntity(string name, string websiteUrl, string description)
         {
             Id = Guid.NewGuid().ToString();
             Name = name;

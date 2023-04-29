@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mapster;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using sharp.Services.PostsService;
 
@@ -18,51 +20,52 @@ namespace sharp.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PostsViewModel>>> GetAllPosts()
         {
-            return Ok(await _postsService.GetAllPosts());
+            List<PostsEntity> result = await _postsService.GetAllPosts();
+            return Ok(result.Adapt< List<PostsViewModel>>());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PostsViewModel>> GetPost(string id)
         {
-            var post = await _postsService.GetPost(id);
-            if (post == null)
+            PostsEntity? result = await _postsService.GetPost(id);
+            if (result == null)
             {
                 return NotFound();
             }
-            return Ok(post);
+            return Ok(result.Adapt<PostsViewModel>());
         }
 
         [HttpPost()]
         public async Task<ActionResult<PostsViewModel>> CreatePost(PostInputModel post)
         {
-            var result = await _postsService.CreatePost(post);
+            PostsEntity? result = await _postsService.CreatePost(post);
             if (result == null)
             {
                 return NotFound();
             }
-            return Ok(result);
+            return Ok(result.Adapt<PostsViewModel>());
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<PostsViewModel>> UpdatePost(string id, PostInputModel post)
         {
-            var result = await _postsService.UpdatePost(id, post);
+            PostsEntity? result = await _postsService.UpdatePost(id, post);
             if (result == null)
             {
                 return NotFound();
             }
-            return Ok(result);
+            return Ok(result.Adapt<PostsViewModel>());
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<PostsViewModel>> DeletePost(string id)
         {
-            var post = await _postsService.DeletePost(id);
-            if (post == null)
+            PostsEntity? result = await _postsService.DeletePost(id);
+            if (result == null)
             {
                 return NotFound();
             }
-            return Ok(post);
+            return Ok(result.Adapt<PostsViewModel>());
         }
     }
 }

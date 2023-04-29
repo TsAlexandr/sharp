@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace sharp.Models
 {
-    public class PostsViewModel
+    public class PostsEntity
     {
         [Required]
         public string Id { get; set; }
@@ -27,10 +27,10 @@ namespace sharp.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [ScaffoldColumn(false)]
-        public BlogsViewModel? Blog { get; set; }
+       
+        public BlogsEntity? Blog { get; set; }
 
-        public PostsViewModel(string title, string shortDescription, string content, string blogId, string blogName) 
+        public PostsEntity(string title, string shortDescription, string content, string blogId, string blogName) 
         {
             Id = Guid.NewGuid().ToString();
             Title = title;

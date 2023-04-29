@@ -9,16 +9,16 @@
             _context = context;
         }
 
-        async Task<PostsViewModel?> IPostsService.CreatePost(PostInputModel post)
+        async Task<PostsEntity?> IPostsService.CreatePost(PostInputModel post)
         {
-            BlogsViewModel? blog = await _context.Blogs.FindAsync(post.BlogId);
+            BlogsEntity? blog = await _context.Blogs.FindAsync(post.BlogId);
             Console.WriteLine(blog);
             if(blog is null)
             {
                 return null;
             }
                  
-            PostsViewModel created = new(
+            PostsEntity created = new(
                 title: post.Title,
                 shortDescription: post.ShortDescription,
                 content: post.Content,
@@ -29,9 +29,9 @@
             return created;
         }
 
-        async Task<PostsViewModel?> IPostsService.DeletePost(string id)
+        async Task<PostsEntity?> IPostsService.DeletePost(string id)
         {
-            PostsViewModel? post = await _context.Posts.FindAsync(id);
+            PostsEntity? post = await _context.Posts.FindAsync(id);
             if (post == null) { return null; }
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
@@ -39,22 +39,22 @@
             return post;
         }
 
-        async Task<List<PostsViewModel>> IPostsService.GetAllPosts()
+        async Task<List<PostsEntity>> IPostsService.GetAllPosts()
         {
-            List<PostsViewModel> posts = await _context.Posts.ToListAsync();
+            List<PostsEntity> posts = await _context.Posts.ToListAsync();
             return posts;
         }
 
-        async Task<PostsViewModel?> IPostsService.GetPost(string id)
+        async Task<PostsEntity?> IPostsService.GetPost(string id)
         {
-            PostsViewModel? post = await _context.Posts.FindAsync(id);
+            PostsEntity? post = await _context.Posts.FindAsync(id);
             if(post == null) { return null; } 
             return post;
         }
 
-        async Task<PostsViewModel?> IPostsService.UpdatePost(string id, PostInputModel post)
+        async Task<PostsEntity?> IPostsService.UpdatePost(string id, PostInputModel post)
         {
-            PostsViewModel? result = await _context.Posts.FindAsync(id);
+            PostsEntity? result = await _context.Posts.FindAsync(id);
             if (result == null) { return null; };
             result.Title = post.Title;
             result.ShortDescription = post.ShortDescription;

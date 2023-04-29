@@ -8,9 +8,9 @@
         {
             _context = context;
         }
-        async Task<BlogsViewModel> IBlogsService.CreateBlog(BlogInputModel blog)
+        async Task<BlogsEntity> IBlogsService.CreateBlog(BlogInputModel blog)
         {
-            BlogsViewModel created = new(
+            BlogsEntity created = new(
                             blog.Name,
                             blog.WebsiteUrl,
                             blog.Description
@@ -20,9 +20,9 @@
             return created;
         }
 
-        async Task<BlogsViewModel?> IBlogsService.DeleteBlog(string id)
+        async Task<BlogsEntity?> IBlogsService.DeleteBlog(string id)
         {
-            BlogsViewModel? blog = await _context.Blogs.FindAsync(id);
+            BlogsEntity? blog = await _context.Blogs.FindAsync(id);
             if (blog == null)
             {
                 return null;
@@ -33,15 +33,15 @@
             return blog;
         }
 
-        async Task<List<BlogsViewModel>> IBlogsService.GetAllBlogs()
+        async Task<List<BlogsEntity>> IBlogsService.GetAllBlogs()
         {
-            List<BlogsViewModel> blogs = await _context.Blogs.ToListAsync();
+            List<BlogsEntity> blogs = await _context.Blogs.ToListAsync();
             return blogs;
         }
 
-        async Task<BlogsViewModel?> IBlogsService.GetBlog(string id)
+        async Task<BlogsEntity?> IBlogsService.GetBlog(string id)
         {
-            BlogsViewModel? blog = await _context.Blogs.FindAsync(id);
+            BlogsEntity? blog = await _context.Blogs.FindAsync(id);
             if (blog == null)
             {
                 return null;
@@ -49,9 +49,9 @@
             return blog;
         }
 
-        async Task<BlogsViewModel?> IBlogsService.UpdateBlog(string id, BlogInputModel blog)
+        async Task<BlogsEntity?> IBlogsService.UpdateBlog(string id, BlogInputModel blog)
         {
-            BlogsViewModel? result = await _context.Blogs.FindAsync(id);
+            BlogsEntity? result = await _context.Blogs.FindAsync(id);
             if (result == null)
             {
                 return null;

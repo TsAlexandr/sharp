@@ -15,16 +15,14 @@ namespace sharp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BlogsViewModel>()
+            modelBuilder.Entity<BlogsEntity>()
                 .HasMany(e => e.Posts)
                 .WithOne(e => e.Blog)
                 .HasForeignKey(e => e.BlogId)
                 .HasPrincipalKey(e => e.Id);
         }
 
-        public DbSet<BlogsViewModel> Blogs { get; set; }
-        public DbSet<PostsViewModel> Posts { get; set; }
+        public DbSet<BlogsEntity> Blogs { get; set; }
+        public DbSet<PostsEntity> Posts { get; set; }
     }
 }
-
-//model creating, ovveride [foreignkey //public blogid]
